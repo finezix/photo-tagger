@@ -4,57 +4,57 @@
  *
  * the tree operates using titles of held objects
  */
- 
+
 template <class T>
 class Tree
 {
 public:
     Tree();
-    
-    Tree(const Tree<T>& other);
-    
-    Tree<T>& operator=(const Tree<T>& other);
-    
-    friend ostream& operator<<(ostream& out, const Tree<T>& tree);
 
-    int count();
-    
+    Tree(const Tree<T>& other);
+
+    Tree<T>& operator=(const Tree<T>& other);
+
+    friend ostream& operator<<(ostream& out, const Tree<T>& tree);//strumieniowy, wypisywanie, co nie?
+
+    int count(); //licznik?
+
     /* searches for T* pointer such that
     pointer == object,
     and if such pointer is found returns false,
-    otherwise adds object to the tree and returns true */
+    otherwise adds object to the tree and returns true */ //kk.
     bool add(T* object);
-    
+
     /* searches for T* pointer such that
     pointer->getTitle().compare(title) == 0,
     and if such pointer is found removes it (only pointer, not object)
     and returns true, otherwise returns false */
     bool remove(const std::string& title);
-    
-    /* deletes nodes, but doesn't touch pointers held by them */
+
+    /* deletes nodes, but doesn't touch pointers held by them */   //tego nie lapie.
     void clear();
-    
+
     /* deletes objects pointed by nodes and all nodes themselves */
-    void seekAndDestroy();
-    
+    void seekAndDestroy();  //nazwa to mnie zwalila z nog... ty takie zapedy masz, serio...?
+
     /* searches for T* pointer such that
     object->getTitle().compare(title) == 0, and if such pointer is found,
     returns it, otherwise returns NULL */
     T* find(const std::string& title);
-           
+
 private:
     Node<T>* root;
-    
+
     int count(Node<T>* node);
-    
+
     bool addT(Node<T>* node, T* object);
-    
+
     bool remove(Node<T>* node);
-    
+
     void clear(Node<T>* node);
-    
+
     void seekAndDestroy(Node<T>* node);
-    
+
     Node<T>* findNode(Node<T>* node, const std::string& title);
 };
 
@@ -63,7 +63,7 @@ private:
 // definitions
 
 template <class T>
-Tree<T>::Tree()
+Tree<T>::Tree() //to ten konstruktor taki, co i tak sie nic z nim nie zrobi potem?
 {
     root = NULL;
 }
@@ -85,7 +85,7 @@ Tree<T>& Tree<T>::operator=(const Tree<T>& other)
 }
 
 template <class T>
-friend ostream& Tree<T>::operator<<(ostream& out, const Tree<T>& tree);
+friend ostream& Tree<T>::operator<<(ostream& out, const Tree<T>& tree); //moj ulubiony strumieniowy?
 {
     if (root != NULL) {
         out << *root;
@@ -93,7 +93,7 @@ friend ostream& Tree<T>::operator<<(ostream& out, const Tree<T>& tree);
     return out;
 }
 
-/* counts number of nodes in tree */
+/* counts number of nodes in tree */  //nie, nie wiem, co tu robi root i co to jest.
 template <class T>
 int Tree<T>::count()
 {
@@ -136,7 +136,7 @@ void Tree<T>::clear()
 {
     if (root != NULL) {
         clear(root);
-        oot = NULL;
+        root = NULL;  //a tu nie powinien byc root? bo oot'a nie bylo do tej pory... no nic, poprawiam :P
     }
 }
 
@@ -164,7 +164,7 @@ T* Tree<T>::find(const std::string& title)
 }
 
 template <class T>
-int Tree<T>::count(Node<T>* node)
+int Tree<T>::count(Node<T>* node)  //a czeeemu taaak?
 {
     if (node == NULL) { return 0;}
     return 1 + count(node->left) + count(node->right);
@@ -180,7 +180,7 @@ bool Tree<T>::addT(Node<T>* node, T* object)
             return addT(node->left, object); // adding to left subtree
         } else {
             node->left = new Node<T>(object); // creating left subtree
-            return true; // object added
+            return true; // object added  // to ideowo weszlo do zakutej bani mojej :D
         }
     } else if (comparisonResult > 0) {
         //object is greater than the one in node
@@ -203,6 +203,7 @@ bool Tree<T>::addT(Node<T>* node, T* object)
  *  - if node has two childs, checks which has greater size;
  *      then assigns to current the value of greater child and calls to remove it
  */
+
 template <class T>
 Node<T>* Tree<T>::remove(Node<T>* wanted, Node<T>* current)
 {
@@ -216,7 +217,7 @@ Node<T>* Tree<T>::remove(Node<T>* wanted, Node<T>* current)
             current = NULL;
         } else if (current->left == NULL || node->right == NULL) {
             // node has one child
-            current = current->left == NULL ? current->right : current->left;
+            current = current->left == NULL ? current->right : current->left; // nie wiem, jak to dziala, ale sie dowiem. to pewnie jakis skrot zapisowy genialny...?
             delete wanted;
             return current;
         } else {
@@ -234,6 +235,7 @@ Node<T>* Tree<T>::remove(Node<T>* wanted, Node<T>* current)
     }
     return current;
 }
+//mogliby mi grozic wymordowaniem calej rodziny (takim wymordowaniem z uzyciem starej skarpetki) a i tak bym nie urodzila takiej bestii O.o
 
 template <class T>
 void Tree<T>::clear(Node<T>* node)
@@ -272,3 +274,8 @@ Node<T>* Tree<T>::findNode(Node<T>* node, const std::string& title)
     }
 }
 
+// LOL1: serio? angielski? do mnie? O.o
+//LOL2: ile tego jest?!?!?!
+//wiec ogolnie: nie ogarniam root'a. a pewnie powinnam.
+//i skad ty wiesz, jak to powinno byc? tzn. jak czytam, to widze, ze to, co mniejwiecej rozumiem ma szanse dzialac.
+//ale skad to wiedziec? O.o
