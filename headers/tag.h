@@ -4,6 +4,7 @@
 class Tag {
 public:
     Tag (std::string name, unsigned int weight);
+    friend std::ostream& operator<< ( std::ostream& os, const Tag& t );
     string getName();
     int getWeight();
 

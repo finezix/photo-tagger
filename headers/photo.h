@@ -3,6 +3,8 @@
 
 class Photo {
 public:
+    Photo (std::string photoname, Date d, Taglist tags );
+    friend std::ostream& operator<< ( std::ostream& os, const Photo& f );
     string getName(); // string
     Date getDate(); // Date
     int getWeight(string tagName); // int; zwraca (-1) jeœli nie ma takiego Tagu
