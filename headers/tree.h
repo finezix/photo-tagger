@@ -16,8 +16,10 @@ public:
     Tree<T>& operator=(const Tree<T>& other);
 
     friend ostream& operator<<(ostream& out, const Tree<T>& tree);//strumieniowy, wypisywanie, co nie?
+    //zgadza sie
 
     int count(); //licznik?
+    //funkcja liczaca raczej, chyba ze to mialas na mysli
 
     /* searches for T* pointer such that
     pointer == object,
@@ -32,10 +34,16 @@ public:
     bool remove(const std::string& title);
 
     /* deletes nodes, but doesn't touch pointers held by them */   //tego nie lapie.
+    // usuwa wezly, ale nie robi 'delete value', czyli nie niszczy danych, za to zwalnia
+    // pamiec zajeta przez samo drzewo. potrzebne, poniewaz gdy bedziemy mieli dwa drzewa
+    // ze wskaznikami do zdjec, jedno posortowane data, drugie posortowane nazwa,
+    // to bez tej funkcji po usunieciu pierwszego wywalilby nam sie program podczas
+    // usuwania drugiego, bo chcialoby usuwac wartosci, ktore nie istnieja - pytania?
     void clear();
 
     /* deletes objects pointed by nodes and all nodes themselves */
     void seekAndDestroy();  //nazwa to mnie zwalila z nog... ty takie zapedy masz, serio...?
+    // akurat sluchalem tego utworu, i uznalem tytul za dobrze wyjasniajacy efekt dzialania
 
     /* searches for T* pointer such that
     object->getTitle().compare(title) == 0, and if such pointer is found,
@@ -137,6 +145,7 @@ void Tree<T>::clear()
     if (root != NULL) {
         clear(root);
         root = NULL;  //a tu nie powinien byc root? bo oot'a nie bylo do tej pory... no nic, poprawiam :P
+        // no dzieki za poprawke, zgubilem, fakt
     }
 }
 
@@ -165,6 +174,11 @@ T* Tree<T>::find(const std::string& title)
 
 template <class T>
 int Tree<T>::count(Node<T>* node)  //a czeeemu taaak?
+// to jest funkcja pomocnicza dla funkcji publicznej. zwraca liczbe
+// elementow zawartych w poddrzewie. jak widzisz wywoluje sie rekurencyjnie
+// dzieki czemu kazdy wezel zwraca po prostu sume z poddrzew zwiekszona o jeden.
+// lisc zwraca 1, bo jego NULL-synowie zwroca zero, ojciec dwoch takich lisci
+// zwroci trzy, bo od synow dostanie 1+1, i sam doda jeden. pytania?
 {
     if (node == NULL) { return 0;}
     return 1 + count(node->left) + count(node->right);
@@ -181,6 +195,7 @@ bool Tree<T>::addT(Node<T>* node, T* object)
         } else {
             node->left = new Node<T>(object); // creating left subtree
             return true; // object added  // to ideowo weszlo do zakutej bani mojej :D
+            // to znaczy rozumiem, ze cale dodawanie ogarniasz, tak?
         }
     } else if (comparisonResult > 0) {
         //object is greater than the one in node
@@ -218,6 +233,9 @@ Node<T>* Tree<T>::remove(Node<T>* wanted, Node<T>* current)
         } else if (current->left == NULL || node->right == NULL) {
             // node has one child
             current = current->left == NULL ? current->right : current->left; // nie wiem, jak to dziala, ale sie dowiem. to pewnie jakis skrot zapisowy genialny...?
+            // tak. na current przypisujesz current->right lub current->left w zaleznosci od tego, czy
+            // current->left == null. taki if, ktory zwraca jakas wartosc:
+            // current = (if) c->l == null (? = then) c->r (: = else) c->l; dalsze pytania?
             delete wanted;
             return current;
         } else {
@@ -236,6 +254,15 @@ Node<T>* Tree<T>::remove(Node<T>* wanted, Node<T>* current)
     return current;
 }
 //mogliby mi grozic wymordowaniem calej rodziny (takim wymordowaniem z uzyciem starej skarpetki) a i tak bym nie urodzila takiej bestii O.o
+// spoko. jak chcesz sie wiecej dowiedziec, skad to cudo: http://en.wikipedia.org/wiki/Binary_search_tree#Deletion
+// ta funkcja, jak widzisz, zwraca wskaznik do obecnie przerabianego wezla.
+// chodzi o to, zeby u rodzica w razie potrzeby zmienic syna z tego (current) na innego
+// albo chocby zmienic u rodzica wskaznik na NULL, jesli usuniemy current,
+// tak jak tam gdzie jest 'node is leaf'. to nie jest takie oczywiste,
+// ale jak moment pomyslisz, i przeczytasz to wiki, to powinnas zrozumiec.
+// to ostatnie, 'check size', jest opcjonalne. moglbym wpisac po prostu ktoras
+// pare linijek, ale jesli dam ifa, to zmniejsze o jeden wezel to wieksze poddrzewo.
+// taka najprostsza optymalizacja.
 
 template <class T>
 void Tree<T>::clear(Node<T>* node)
@@ -277,5 +304,8 @@ Node<T>* Tree<T>::findNode(Node<T>* node, const std::string& title)
 // LOL1: serio? angielski? do mnie? O.o
 //LOL2: ile tego jest?!?!?!
 //wiec ogolnie: nie ogarniam root'a. a pewnie powinnam.
+//--------->rozumiem, ze juz ogarniasz po konsultacji na skype
 //i skad ty wiesz, jak to powinno byc? tzn. jak czytam, to widze, ze to, co mniejwiecej rozumiem ma szanse dzialac.
 //ale skad to wiedziec? O.o
+//---------> sluchaj, ja juz to raz pisalem, tyle ze w Pascalu.
+// mam to ogolnie ogarniete na podstawowym poziomie ideologicznym.
