@@ -3,13 +3,19 @@
 
 class TagList {
 public:
-    bool add(Tag t); // bool; dodaje tag, zwraca true  jeœli tagu wczeœniej nie by³o na liœcie i zosta³ poprawnie dodany
-    int size(); // int; iloœæ tagów na liœcie
+	TagList();
+	Tag(const TagList& other);
+	TagList& operator=(const TagList& other);
+	friend ostream& operator<<(ostream& out, const TagList& tag);
+	
+    bool add(const Tag& t); // dodaje tag, zwraca true  jeœli tagu wczeœniej nie by³o na liœcie i zosta³ poprawnie dodany
+    int size(); // iloœæ tagów na liœcie // potrzebne?
     Tag get(int index); // zwraca tag spod danego indeksu
     int getIndex(string tagName); //zwraca (-1) jeœli na liœcie nie ma podanego tagu
 
 private:
-    int Tag* list[MAX_TAGS_COUNT]; // rozmiar
+    Tag list[MAX_TAGS_COUNT]; // tablica elementow
+	int size;
 };
 
 #endif

@@ -18,12 +18,12 @@ public:
 
     friend ostream& operator<< (ostream& out, const Node<T>& node)
     {
-        if (left != NULL) {
-            out << *left;//writes left subtree to stream
+        if (node.left != NULL) {
+            out << *(node.left);//writes left subtree to stream
         }
-        out << *value << endl;//writes value to stream - value itself has to know how
-        if (right != NULL) {
-            out << *right;//writes right subtree to stream
+        out << *(node.value) << endl;//writes value to stream - value itself has to know how
+        if (node.right != NULL) {
+            out << *(node.right);//writes right subtree to stream
         }
     };
 };

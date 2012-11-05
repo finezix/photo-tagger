@@ -95,8 +95,8 @@ Tree<T>& Tree<T>::operator=(const Tree<T>& other)
 template <class T>
 friend ostream& Tree<T>::operator<<(ostream& out, const Tree<T>& tree); //moj ulubiony strumieniowy?
 {
-    if (root != NULL) {
-        out << *root;
+    if (tree.root != NULL) {
+        out << tree.root;
     }
     return out;
 }

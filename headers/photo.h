@@ -3,18 +3,18 @@
 
 class Photo {
 public:
-    Photo (std::string photoname, Date d, Taglist tags );
+    Photo (std::string photoname, const Date& d, const Taglist& tags);
     friend std::ostream& operator<< ( std::ostream& os, const Photo& f );
-    string getName(); // string
-    Date getDate(); // Date
-    int getWeight(string tagName); // int; zwraca (-1) jeœli nie ma takiego Tagu
-    TagList getTagList();// TagList
-    int compareTo(string); // bo mowiles, ze ka¿de T musi to mieæ…
+	
+    std::string getTitle(); // returns Photo's name
+    Date getDate(); // returns Photo's Date
+    int getWeight(const std::string& tagName);// returns weight of tag named 'tagName', or -1 if there's no such tag
+    TagList getTagList();// returns Photo's TagList
 
 private:
-    string photoname; //nazwa zdjêcia
-    Date date; // data utworzenia pliku
-    TagList tags; // lista tagów przypisanych do danego zdjêcia (1-5)
+    string photoName;
+    Date date; // Photo's shooting date
+    TagList tags; // list of tags connected with this Photo with their weights (1-5)
 };
 
 #endif
