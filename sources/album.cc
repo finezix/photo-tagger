@@ -4,45 +4,29 @@
 #include "photolist.h"
 #include "photo.h"
 #include "date.h"
-#include <iostream>
+#include <iostream> // pewnie niepotrzebne
 
 bool Album::save(File f) // zapisywanie do pliku
 {
-
+	// tu muszze ogarnac filesy w C++
 }
 
 bool Album::load(File f) // wczytywanie danych z pliku
 {
-
+	// jak wyzej
 }
 
 bool Album::add(Photo* f) // dodawanie zdjêcia do albumu
 {
-
+	//w sumie album zrobie potem
 }
 
 Album::remove(Photo** f) //wywalanie zdjêcia z albumu
 {
-
+	jeszcze pozniej
 }
 
 Album::removeAll() // wywalanie wszystkiego, co jest w albumie, taki mega format ogólnie
 {
-
-}
-
-//nie mam pojecia, czy to tez ma istniec, wiec wpisuje, zebys mnie nie bil..
-Album::Tree<Photo> photos // drzewo zdjêæ
-{
-
-}
-
-Album::Tree<PhotoList> tagTree // drzewo tagów
-{
-
-}
-
-Album::Tree<PhotoList> dateTree // drzewo dat wykonania zdjêæ
-{
-
+	a to na koncu
 }
