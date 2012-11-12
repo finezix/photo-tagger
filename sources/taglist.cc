@@ -1,13 +1,13 @@
 #include "taglist.h"
 #include "tag.h"
-#include <iostream> // tu tez pewnie niepotrzebne
+#include <iostream> // tu tez pewnie niepotrzebne //pewnie nie
 
-TagList::TagList()
+TagList::TagList()//pusty, nic z nim nie zrobimy...?
 {
 	size = 0;
 }
 
-TagList::TagList(const TagList& other)
+TagList::TagList(const TagList& other) //
 {
 	size = other.size;
 	for (int i = 0; i < size; i++) {
@@ -15,7 +15,7 @@ TagList::TagList(const TagList& other)
 	}
 }
 
-TagList& TagList::operator=(const TagList& other)
+TagList& TagList::operator=(const TagList& other) // czy to serio kopiuje...?
 {
 	size = other.size;
 	for (int i = 0; i < size; i++) {
@@ -24,7 +24,7 @@ TagList& TagList::operator=(const TagList& other)
 	return this;
 }
 
-friend ostream& TagList::operator<<(ostream& out, const TagList& tag)
+friend ostream& TagList::operator<<(ostream& out, const TagList& tag) //wypisuje... lol. nie wiem.
 {
 	os << "Tags:{";
 	for (int i = 0; i < tag.size; i++) {
@@ -36,10 +36,10 @@ friend ostream& TagList::operator<<(ostream& out, const TagList& tag)
 
 bool TagList::add(const Tag& t) // dodaje tag, zwraca true  jeœli tagu wczeœniej nie by³o na liœcie i zosta³ poprawnie dodany
 {
-	// nie pamietam, wzgledem czego zdjecie ma miec posortowane tagi? wzgledem nazwy czy wagi?
+	// nie pamietam, wzgledem czego zdjecie ma miec posortowane tagi? wzgledem nazwy czy wagi? // lol. dobre pytanie. jutro zadam je biedrzemu... a co wolisz? <3
 }
 
-int TagList::size() // iloœæ tagów na liœcie // potrzebne?
+int TagList::size() // iloœæ tagów na liœcie // potrzebne? // chyba tak
 {
 	return size;
 }
@@ -47,10 +47,10 @@ int TagList::size() // iloœæ tagów na liœcie // potrzebne?
 Tag TagList::get(int index) // zwraca tag spod danego indeksu
 {
 	if (index < size) return list[index];
-	else return NULL; // chyba powinno byc inaczej, potem pomysle
+	else return NULL; // chyba powinno byc inaczej, potem pomysle // anie lepiej, zeby wypisalo "brak tagusia"czy cos takiego?
 }
 
-int TagList::getIndex(const std::string& tagName) //zwraca (-1) jeœli na liœcie nie ma podanego tagu
+int TagList::getIndex(const std::string& tagName) //zwraca (-1) jeœli na liœcie nie ma podanego tagu // tak, to rozumieeem
 {
 	int i = 0;
 	bool found = false;

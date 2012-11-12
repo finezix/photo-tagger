@@ -3,25 +3,25 @@
 #include "taglist.h"
 #include <iostream> // niepotrzebne chyba
 
-Photo::Photo (std::string photoname, const Date& d, const Taglist& tags)
+Photo::Photo (std::string photoname, const Date& d, const Taglist& tags)//tworzy fote :D (czyli te aparaty przereklamowane sa)
 {
 	this.photoName = photoname;
 	date = d;
 	this.tags = tags;
 }
 
-friend std::ostream& Photo::operator<< ( std::ostream& os, const Photo& f )
+friend std::ostream& Photo::operator<< ( std::ostream& os, const Photo& f ) //wypisuje wszystko, co wiemy o focie
 {
 	os << f.photoName << ", " << f.date << ", " << f.tags << std::endl;
 	return os;
 }
 
-std::string Photo::getTitle() // returns Photo's name
+std::string Photo::getTitle() // returns Photo's name//tak
 {
 	return photoName;
 }
 
-Date Photo::getDate() // returns Photo's Date
+Date Photo::getDate() // returns Photo's Date//tak
 {
 	return date;
 }
@@ -32,7 +32,7 @@ int Photo::getWeight(const std::string& tagName) // returns weight of tag named 
 	return index == -1 ? -1 : tags.get(index).getWeight;
 }
 
-TagList Photo::getTagList()
+TagList Photo::getTagList()//lol! to dzialac bedzie...? O.o
 {
 	return tags;
 }

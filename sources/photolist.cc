@@ -1,7 +1,7 @@
 #include "photolist.h"
 #include "photo.h"
-#include <iostream> // pewnie niepotrzebne
-
+#include <iostream>
+//duzo czytania <3
 PhotoList::PhotoList(const std::string& title)
 {
 	listTitle = title;

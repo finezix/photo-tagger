@@ -4,7 +4,8 @@
 #include "photolist.h"
 #include "photo.h"
 #include "date.h"
-#include <iostream> // pewnie niepotrzebne
+#include <iostream>
+//takie lubie najbardziej <3
 
 bool Album::save(File f) // zapisywanie do pliku
 {
