@@ -10,11 +10,11 @@ public:
     friend std::ostream& operator<< ( std::ostream& os, const Tag& t );
 	
     std::string getName();
-    int getWeight();
+    unsigned int getWeight();
 
 private:
     std::string name; // tag's name
-    int weight; // tag's weight (importance)
+    unsigned int weight; // tag's weight (importance)
 };
 
 #endif

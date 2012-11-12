@@ -14,9 +14,9 @@ public:
     string toString(); // string
 
 private:
-    int dd;
-    int mm;
-    int yyyy;
+    unsigned int dd;
+    unsigned int mm;
+    unsigned int yyyy;
 };
 
 #endif
