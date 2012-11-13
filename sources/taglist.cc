@@ -3,6 +3,7 @@
 #include <iostream> // tu tez pewnie niepotrzebne //pewnie nie
 
 TagList::TagList()//pusty, nic z nim nie zrobimy...?
+// ustawiamy size na 0, to dosc wazne
 {
 	size = 0;
 }

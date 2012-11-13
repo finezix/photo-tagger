@@ -21,6 +21,8 @@ Tag& Tag::operator=(const Tag& other) //przypisanie?
 }
 
 friend std::ostream& Tag::operator<< ( std::ostream& os, const Tag& t ) //wywalamy na ekran
+//nie - wywalamy na strumien. to sie przyda, bo mozna uzyc wywalania na strumien konsoli,
+//ale i wywalania na strumien pliku - zebysmy ta baze danych mieli
 {
 	os << t.name << ": " << t.weight << ';';
 }
