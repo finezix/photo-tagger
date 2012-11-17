@@ -1,33 +1,36 @@
-#include "album.h"
-#include "taglist.h"
-#include "tag.h"
-#include "photolist.h"
-#include "photo.h"
-#include "date.h"
-#include <iostream>
+#include "../headers/album.h"
+#include "../headers/taglist.h"
+#include "../headers/tag.h"
+#include "../headers/photolist.h"
+#include "../headers/photo.h"
+#include "../headers/date.h"
+
 //takie lubie najbardziej <3
 
-bool Album::save(File f) // zapisywanie do pliku
+bool Album::save() // zapisywanie do pliku
 {
 	// tu muszze ogarnac filesy w C++
+	return false;
 }
 
-bool Album::load(File f) // wczytywanie danych z pliku
+bool Album::load() // wczytywanie danych z pliku
 {
 	// jak wyzej
+	return false;
 }
 
-bool Album::add(Photo* f) // dodawanie zdjêcia do albumu
+bool Album::add(Photo* p) // dodawanie zdjêcia do albumu
 {
 	//w sumie album zrobie potem
+	return false;
 }
 
-Album::remove(Photo** f) //wywalanie zdjêcia z albumu
+void Album::remove(Photo* p) //wywalanie zdjêcia z albumu
 {
-	jeszcze pozniej
+	//jeszcze pozniej
 }
 
-Album::removeAll() // wywalanie wszystkiego, co jest w albumie, taki mega format ogólnie
+void Album::removeAll() // wywalanie wszystkiego, co jest w albumie, taki mega format ogólnie
 {
-	a to na koncu
+	//a to na koncu
 }

@@ -1,20 +1,25 @@
-#define TAG_h
-#ifndef TAG_h
+#ifndef TAG_H
+#define TAG_H
+
+#include <ostream>
+#include <string>
 
 /* Simple class holding weight of given tag, and that tag's name */
-class Tag {
+class Tag
+{
 public:
-    Tag (std::string name, unsigned int weight);
+	Tag();
 	Tag(const Tag& other);
+    Tag (std::string name, unsigned int weight);
 	Tag& operator=(const Tag& other);
-    friend std::ostream& operator<< ( std::ostream& os, const Tag& t );
+    friend std::ostream& operator<< (std::ostream& os, const Tag& t);
 	
-    std::string getName();
-    unsigned int getWeight();
+    std::string getName() const;
+    unsigned int getWeight() const;
 
 private:
     std::string name; // tag's name
     unsigned int weight; // tag's weight (importance)
 };
 
-#endif
+#endif // TAG_H

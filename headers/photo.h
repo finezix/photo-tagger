@@ -1,10 +1,17 @@
-#define PHOTO_h
-#ifndef PHOTO_h
+#ifndef PHOTO_H
+#define PHOTO_H
 
-class Photo {
+#include "date.h"
+#include "taglist.h"
+
+#include <ostream>
+#include <string>
+
+class Photo
+{
 public:
-    Photo (std::string photoname, const Date& d, const Taglist& tags);
-    friend std::ostream& operator<< ( std::ostream& os, const Photo& f );
+    Photo (std::string title, const Date& d, const TagList& t);
+    friend std::ostream& operator<< (std::ostream& os, const Photo& f);
 	
     std::string getTitle(); // returns Photo's name
     Date getDate(); // returns Photo's Date
@@ -12,9 +19,9 @@ public:
     TagList getTagList();// returns Photo's TagList
 
 private:
-    string photoName;
+    std::string photoName;
     Date date; // Photo's shooting date
     TagList tags; // list of tags connected with this Photo with their weights (1-5)
 };
 
-#endif
+#endif // PHOTO_H

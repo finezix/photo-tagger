@@ -1,3 +1,11 @@
+#ifndef TREE_H
+#define TREE_H
+
+#include "node.h"
+
+#include <ostream>
+#include <string>
+
 /*
  * class T has to implement single method:
  * std::string& getTitle();
@@ -15,7 +23,7 @@ public:
 
     Tree<T>& operator=(const Tree<T>& other);
 
-    friend ostream& operator<<(ostream& out, const Tree<T>& tree);//strumieniowy, wypisywanie, co nie?
+    template <class U> friend std::ostream& operator<<(std::ostream& out, const Tree<U>& tree);//strumieniowy, wypisywanie, co nie?
     //zgadza sie
 
     int count(); //licznik?
@@ -57,7 +65,7 @@ private:
 
     bool addT(Node<T>* node, T* object);
 
-    bool remove(Node<T>* node);
+	Node<T>* remove(Node<T>* wanted, Node<T>* current);
 
     void clear(Node<T>* node);
 
@@ -93,7 +101,7 @@ Tree<T>& Tree<T>::operator=(const Tree<T>& other)
 }
 
 template <class T>
-friend ostream& Tree<T>::operator<<(ostream& out, const Tree<T>& tree); //moj ulubiony strumieniowy?
+std::ostream& operator<<(std::ostream& out, const Tree<T>& tree) //moj ulubiony strumieniowy?
 {
     if (tree.root != NULL) {
         out << tree.root;
@@ -172,6 +180,12 @@ T* Tree<T>::find(const std::string& title)
     return node->value;
 }
 
+/*
+ * <<<<<<<<<<<<<<<
+ * private
+ * <<<<<<<<<<<<<<<
+ */
+
 template <class T>
 int Tree<T>::count(Node<T>* node)  //a czeeemu taaak?
 // to jest funkcja pomocnicza dla funkcji publicznej. zwraca liczbe
@@ -226,12 +240,12 @@ Node<T>* Tree<T>::remove(Node<T>* wanted, Node<T>* current)
         current->left = remove(current->left);
         current->right = remove(current->right);
     } else {
-        if (current->left == NULL && node->right == NULL) {
-            // node is leaf, we just delete it
+        if (current->left == NULL && current->right == NULL) {
+            // current is leaf, we just delete it
             delete wanted;
             current = NULL;
-        } else if (current->left == NULL || node->right == NULL) {
-            // node has one child
+        } else if (current->left == NULL || current->right == NULL) {
+            // current has one child
             current = current->left == NULL ? current->right : current->left; // nie wiem, jak to dziala, ale sie dowiem. to pewnie jakis skrot zapisowy genialny...?
             // tak. na current przypisujesz current->right lub current->left w zaleznosci od tego, czy
             // current->left == null. taki if, ktory zwraca jakas wartosc:
@@ -239,7 +253,7 @@ Node<T>* Tree<T>::remove(Node<T>* wanted, Node<T>* current)
             delete wanted;
             return current;
         } else {
-            // node has two childs, check size of both
+            // current has two childs, check size of both
             int leftSize = count(current->left);
             int rightSize = count(current->right);
             if (leftSize < rightSize) {
@@ -309,3 +323,5 @@ Node<T>* Tree<T>::findNode(Node<T>* node, const std::string& title)
 //ale skad to wiedziec? O.o
 //---------> sluchaj, ja juz to raz pisalem, tyle ze w Pascalu.
 // mam to ogolnie ogarniete na podstawowym poziomie ideologicznym.
+
+#endif // TREE_H

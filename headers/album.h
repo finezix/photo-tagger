@@ -1,18 +1,23 @@
-#define ALBUM_h
-#ifndef ALBUM_h
+#ifndef ALBUM_H
+#define ALBUM_H
 
-class Album { //album, wszystko ma w nim siedzieæ
+#include "photo.h"
+#include "tree.h"
+#include "photolist.h"
+
+class Album
+{ //album, wszystko ma w nim siedziec
 public:
-    bool save(File f); // zapisywanie do pliku
-    bool load(File f); // wczytywanie danych z pliku
-    bool add(Photo* f); // dodawanie zdjêcia do albumu
-    remove(Photo** f); //wywalanie zdjêcia z albumu
-    removeAll(); // wywalanie wszystkiego, co jest w albumie, taki mega format ogólnie
+    bool save(); // zapisywanie do pliku
+    bool load(); // wczytywanie danych z pliku
+    bool add(Photo* p); // dodawanie zdjecia do albumu
+    void remove(Photo* p); //wywalanie zdjecia z albumu
+    void removeAll(); // wywalanie wszystkiego, co jest w albumie, taki mega format ogolnie
 
 private:
-    Tree<Photo> photos; // drzewo zdjêæ
-    Tree<PhotoList> tagTree; // drzewo tagów
-    Tree<PhotoList> dateTree; // drzewo dat wykonania zdjêæ
+    Tree<Photo> photos; // drzewo zdjec
+    Tree<PhotoList> tagTree; // drzewo tagow
+    Tree<PhotoList> dateTree; // drzewo dat wykonania zdjec
 };
 
-#endif
+#endif // ALBUM_H

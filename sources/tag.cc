@@ -1,10 +1,10 @@
-#include "tag.h"
+#include "../headers/tag.h"
 #include <iostream> // to prawdopodobnie nie jest potrzebne
 
-Tag::Tag (std::string name, unsigned int weight) //tworzy taaaga?
+Tag::Tag()
 {
-	this.name = name;
-	this.weight = weight;
+	name = "pusty_tag";
+	weight = 1000;
 }
 
 Tag::Tag(const Tag& other) //znow obstawiam, ze kopijacy
@@ -13,26 +13,33 @@ Tag::Tag(const Tag& other) //znow obstawiam, ze kopijacy
 	weight = other.weight;
 }
 
+Tag::Tag (std::string name, unsigned int weight) //tworzy taaaga?
+{
+	this->name = name;
+	this->weight = weight;
+}
+
 Tag& Tag::operator=(const Tag& other) //przypisanie?
 {
 	name = other.name;
 	weight = other.weight;
-	return this;
+	return *this;
 }
 
-friend std::ostream& Tag::operator<< ( std::ostream& os, const Tag& t ) //wywalamy na ekran
+std::ostream& operator<< ( std::ostream& os, const Tag& t ) //wywalamy na ekran
 //nie - wywalamy na strumien. to sie przyda, bo mozna uzyc wywalania na strumien konsoli,
 //ale i wywalania na strumien pliku - zebysmy ta baze danych mieli
 {
 	os << t.name << ": " << t.weight << ';';
+	return os;
 }
 
-std::string Tag::getName() //zwraca nazwe
+std::string Tag::getName() const//zwraca nazwe
 {
 	return name;
 }
 
-unsigned int Tag::getWeight()//zwraca wage
+unsigned int Tag::getWeight() const//zwraca wage
 {
 	return weight;
 }
