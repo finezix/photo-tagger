@@ -6,71 +6,29 @@
 #include <ostream>
 #include <string>
 
-/*
- * class T has to implement single method:
- * std::string& getTitle();
- *
- * the tree operates using titles of held objects
- */
 
 template <class T>
 class Tree
 {
 public:
     Tree();
-
     Tree(const Tree<T>& other);
-
     Tree<T>& operator=(const Tree<T>& other);
-
-    template <class U> friend std::ostream& operator<<(std::ostream& out, const Tree<U>& tree);//strumieniowy, wypisywanie, co nie?
-    //zgadza sie
-
-    int count(); //licznik?
-    //funkcja liczaca raczej, chyba ze to mialas na mysli
-
-    /* searches for T* pointer such that
-    pointer == object,
-    and if such pointer is found returns false,
-    otherwise adds object to the tree and returns true */ //kk.
+    template <class U> friend std::ostream& operator<<(std::ostream& out, const Tree<U>& tree);
+    int count();
     bool add(T* object);
-
-    /* searches for T* pointer such that
-    pointer->getTitle().compare(title) == 0,
-    and if such pointer is found removes it (only pointer, not object)
-    and returns true, otherwise returns false */
     bool remove(const std::string& title);
-
-    /* deletes nodes, but doesn't touch pointers held by them */   //tego nie lapie.
-    // usuwa wezly, ale nie robi 'delete value', czyli nie niszczy danych, za to zwalnia
-    // pamiec zajeta przez samo drzewo. potrzebne, poniewaz gdy bedziemy mieli dwa drzewa
-    // ze wskaznikami do zdjec, jedno posortowane data, drugie posortowane nazwa,
-    // to bez tej funkcji po usunieciu pierwszego wywalilby nam sie program podczas
-    // usuwania drugiego, bo chcialoby usuwac wartosci, ktore nie istnieja - pytania?
     void clear();
-
-    /* deletes objects pointed by nodes and all nodes themselves */
-    void seekAndDestroy();  //nazwa to mnie zwalila z nog... ty takie zapedy masz, serio...?
-    // akurat sluchalem tego utworu, i uznalem tytul za dobrze wyjasniajacy efekt dzialania
-
-    /* searches for T* pointer such that
-    object->getTitle().compare(title) == 0, and if such pointer is found,
-    returns it, otherwise returns NULL */
+    void seekAndDestroy();
     T* find(const std::string& title);
 
 private:
     Node<T>* root;
-
     int count(Node<T>* node);
-
     bool addT(Node<T>* node, T* object);
-
 	Node<T>* remove(Node<T>* wanted, Node<T>* current);
-
     void clear(Node<T>* node);
-
     void seekAndDestroy(Node<T>* node);
-
     Node<T>* findNode(Node<T>* node, const std::string& title);
 };
 
@@ -79,7 +37,7 @@ private:
 // definitions
 
 template <class T>
-Tree<T>::Tree() //to ten konstruktor taki, co i tak sie nic z nim nie zrobi potem?
+Tree<T>::Tree()
 {
     root = NULL;
 }
@@ -101,7 +59,7 @@ Tree<T>& Tree<T>::operator=(const Tree<T>& other)
 }
 
 template <class T>
-std::ostream& operator<<(std::ostream& out, const Tree<T>& tree) //moj ulubiony strumieniowy?
+std::ostream& operator<<(std::ostream& out, const Tree<T>& tree)
 {
     if (tree.root != NULL) {
         out << tree.root;
@@ -109,17 +67,12 @@ std::ostream& operator<<(std::ostream& out, const Tree<T>& tree) //moj ulubiony 
     return out;
 }
 
-/* counts number of nodes in tree */  //nie, nie wiem, co tu robi root i co to jest.
 template <class T>
 int Tree<T>::count()
 {
     return count(root);
 }
 
-/* searches for T* pointer such that
-pointer == object,
-and if such pointer is found returns false,
-otherwise adds object to the tree and returns true */
 template <class T>
 bool Tree<T>::add(T* object)
 {
@@ -131,10 +84,6 @@ bool Tree<T>::add(T* object)
     return add(root, object);
 }
 
-/* searches for T* pointer such that
-pointer->getTitle().compare(title) == 0,
-and if such pointer is found removes it (only pointer, not object)
-and returns true, otherwise returns false */
 template <class T>
 bool Tree<T>::remove(const std::string& title)
 {
@@ -146,18 +95,15 @@ bool Tree<T>::remove(const std::string& title)
     return true;
 }
 
-/* deletes nodes, but doesn't touch pointers held by them */
 template <class T>
 void Tree<T>::clear()
 {
     if (root != NULL) {
         clear(root);
-        root = NULL;  //a tu nie powinien byc root? bo oot'a nie bylo do tej pory... no nic, poprawiam :P
-        // no dzieki za poprawke, zgubilem, fakt
+        root = NULL;
     }
 }
 
-/* deletes objects pointed by nodes and all nodes themselves */
 template <class T>
 void Tree<T>::seekAndDestroy()
 {
@@ -167,9 +113,6 @@ void Tree<T>::seekAndDestroy()
     }
 }
 
-/* searches for T* pointer such that
-object->getTitle().compare(title) == 0, and if such pointer is found,
-returns it, otherwise returns NULL */
 template <class T>
 T* Tree<T>::find(const std::string& title)
 {
@@ -187,12 +130,7 @@ T* Tree<T>::find(const std::string& title)
  */
 
 template <class T>
-int Tree<T>::count(Node<T>* node)  //a czeeemu taaak?
-// to jest funkcja pomocnicza dla funkcji publicznej. zwraca liczbe
-// elementow zawartych w poddrzewie. jak widzisz wywoluje sie rekurencyjnie
-// dzieki czemu kazdy wezel zwraca po prostu sume z poddrzew zwiekszona o jeden.
-// lisc zwraca 1, bo jego NULL-synowie zwroca zero, ojciec dwoch takich lisci
-// zwroci trzy, bo od synow dostanie 1+1, i sam doda jeden. pytania?
+int Tree<T>::count(Node<T>* node)
 {
     if (node == NULL) { return 0;}
     return 1 + count(node->left) + count(node->right);
@@ -203,35 +141,22 @@ bool Tree<T>::addT(Node<T>* node, T* object)
 {
     int comparisonResult = object->getTitle().compare(node->value->getTitle());
     if (comparisonResult < 0) {
-        //object is lesser than the one in node
         if (node->left != NULL) {
-            return addT(node->left, object); // adding to left subtree
+            return addT(node->left, object);
         } else {
-            node->left = new Node<T>(object); // creating left subtree
-            return true; // object added  // to ideowo weszlo do zakutej bani mojej :D
-            // to znaczy rozumiem, ze cale dodawanie ogarniasz, tak?
+            node->left = new Node<T>(object);
+            return true;
         }
     } else if (comparisonResult > 0) {
-        //object is greater than the one in node
-        if (node->right != NULL) {
-            return addT(node->right, object); // adding to right subtree
+          if (node->right != NULL) {
+            return addT(node->right, object);
         } else {
-            node->right = new Node<T>(object); // creating right subtree
-            return true; // object added
+            node->right = new Node<T>(object);
+            return true;
         }
     }
-    // object already in tree
     return false;
 }
-
-/* removes 'wanted' from 'current' tree by checking if current is wanted,
- * if not: calls remove on both children and assigns results to them
- * if yes, checks:
- *  - if node has no children, deletes and returns NULL
- *  - if node has one child, deletes and returns child
- *  - if node has two childs, checks which has greater size;
- *      then assigns to current the value of greater child and calls to remove it
- */
 
 template <class T>
 Node<T>* Tree<T>::remove(Node<T>* wanted, Node<T>* current)
@@ -241,19 +166,13 @@ Node<T>* Tree<T>::remove(Node<T>* wanted, Node<T>* current)
         current->right = remove(current->right);
     } else {
         if (current->left == NULL && current->right == NULL) {
-            // current is leaf, we just delete it
             delete wanted;
             current = NULL;
         } else if (current->left == NULL || current->right == NULL) {
-            // current has one child
-            current = current->left == NULL ? current->right : current->left; // nie wiem, jak to dziala, ale sie dowiem. to pewnie jakis skrot zapisowy genialny...?
-            // tak. na current przypisujesz current->right lub current->left w zaleznosci od tego, czy
-            // current->left == null. taki if, ktory zwraca jakas wartosc:
-            // current = (if) c->l == null (? = then) c->r (: = else) c->l; dalsze pytania?
+            current = current->left == NULL ? current->right : current->left;
             delete wanted;
             return current;
         } else {
-            // current has two childs, check size of both
             int leftSize = count(current->left);
             int rightSize = count(current->right);
             if (leftSize < rightSize) {
@@ -267,16 +186,6 @@ Node<T>* Tree<T>::remove(Node<T>* wanted, Node<T>* current)
     }
     return current;
 }
-//mogliby mi grozic wymordowaniem calej rodziny (takim wymordowaniem z uzyciem starej skarpetki) a i tak bym nie urodzila takiej bestii O.o
-// spoko. jak chcesz sie wiecej dowiedziec, skad to cudo: http://en.wikipedia.org/wiki/Binary_search_tree#Deletion
-// ta funkcja, jak widzisz, zwraca wskaznik do obecnie przerabianego wezla.
-// chodzi o to, zeby u rodzica w razie potrzeby zmienic syna z tego (current) na innego
-// albo chocby zmienic u rodzica wskaznik na NULL, jesli usuniemy current,
-// tak jak tam gdzie jest 'node is leaf'. to nie jest takie oczywiste,
-// ale jak moment pomyslisz, i przeczytasz to wiki, to powinnas zrozumiec.
-// to ostatnie, 'check size', jest opcjonalne. moglbym wpisac po prostu ktoras
-// pare linijek, ale jesli dam ifa, to zmniejsze o jeden wezel to wieksze poddrzewo.
-// taka najprostsza optymalizacja.
 
 template <class T>
 void Tree<T>::clear(Node<T>* node)
@@ -303,25 +212,13 @@ Node<T>* Tree<T>::findNode(Node<T>* node, const std::string& title)
     }
     int comparisonResult = title.compare(node->value->getTitle());
     if (comparisonResult == 0) {
-        //object found
         return node;
     }
     if (comparisonResult < 0) {
-        // object lesser than the one in node, searching left subtree
         return findNode(node->left, title);
     } else {
-        // object greater than the one in node, searching right subtree
         return findNode(node->right, title);
     }
 }
-
-// LOL1: serio? angielski? do mnie? O.o
-//LOL2: ile tego jest?!?!?!
-//wiec ogolnie: nie ogarniam root'a. a pewnie powinnam.
-//--------->rozumiem, ze juz ogarniasz po konsultacji na skype
-//i skad ty wiesz, jak to powinno byc? tzn. jak czytam, to widze, ze to, co mniejwiecej rozumiem ma szanse dzialac.
-//ale skad to wiedziec? O.o
-//---------> sluchaj, ja juz to raz pisalem, tyle ze w Pascalu.
-// mam to ogolnie ogarniete na podstawowym poziomie ideologicznym.
 
 #endif // TREE_H

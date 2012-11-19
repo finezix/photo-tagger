@@ -9,6 +9,8 @@
 #include <string>
 #include <ostream>
 
+//ogolnie nie wiem, jak napisac to, ze te drzewa ze soba rozmawiaja...
+
 using namespace std;
 
 void instrukcja();
@@ -16,9 +18,15 @@ void dodawanie();
 void usuwanie();
 void formatowanie();
 void wyswietlanie();
-void wyjscie();
+//void wyjscie();
 void zapisz();
 void wczytaj();
+
+void wypisza();
+void wypiszch();
+void znajdznazw();
+void znajdztag();
+void znajdzdate();
 
 int menu()
 
@@ -50,11 +58,9 @@ int menu()
 				break;
 		case 6: zapisz();// zapis stanu do pliku
 				break;
-		case 6: wczytaj();// wczytywanie danych z pliku
+		case 7: wczytaj();// wczytywanie danych z pliku
 				break;
-		case 8: wyjscie();// wyjście z programu
-				break;
-	}
+    }
 	return pytanie; // zwraca wartość do porównania.
 }
 
@@ -108,42 +114,131 @@ void dodawanie()
 		cout << "Dodano tag " << i + 1 << " z " << ilosc << endl;
 	}
 	Photo p(title, d, tl);
+
+	// tu cos, to ma jakis zwiazek z tym album::add(photo* p), co nie...?
+	//ale nie umiem zupelnie
+
 	cout << "Zdjecie dodano do albumu" << endl;
+	int menu();
 }
 
 void usuwanie()
 {
-	cout <<  endl << "Oto zakończenie." << endl << endl;
+	cout << "Co chcesz usunąć?" << endl;
+	cout << "1 - Usun zdjecie";
 }
 
 void formatowanie()
 {
-	cout <<  endl << "Oto zakończenie." << endl << endl;
+	cout <<  "Czy na pewno chcesz usunąć album?" << endl;
+	cout <<  "Aby potwierdzic wcisnij '1' " << endl;
+	int potwierdzenie;
+	if (potwierdzenie=1)	{void removeAll();}
+	else cout << "Album nie zostal usuniety" << endl;
+	int menu();
 }
 
 void wyswietlanie()
 {
-	cout <<  endl << "Oto zakończenie." << endl << endl;
+	cout << "Wyswietlanie, co chcesz zrobic?" << endl;
+	cout << "1 - Wyswietl alfabetycznie zdjecia zawarte w albumie" << endl;
+	cout << "2 - Wyswietl chronologicznie zdjecia zawarte w albumie" << endl;
+	cout << "3 - Szukaj zdjecia" << endl;
+	cout << "4 - Szukaj tagu" << endl;
+	cout << "5 - Szukaj daty" << endl;
+
+	int pytanie2;
+	cin >> pytanie2;
+
+	switch (pytanie2)
+	{
+	    case 1: wypisza();// instrukcja
+				break;
+		case 2: wypiszch;// dodawanie
+				break;
+		case 3: znajdznazw();// usuwanie zdjecia z albumu
+				break;
+		case 4: znajdztag();// usuwanie wszystkiego
+				break;
+		case 5: znajdzdate();// wypisywanie
+				break;
+}
 }
 
 void wczytaj()
 {
-	//tu bedzie cos, co ogarnia wczytywanie
+	cout <<"Error 404: Page not found" << endl;
+	cout <<"Yet..." << endl;
 }
 
 void zapisz()
 {
-	//cos, co bedzie zapisywac
+	cout << "Error 404: Page not found" << endl;
+	cout << "Yet..." << endl;
+	menu();
 }
 
-void wyjscie()
+/* void wyjscie()
 {
-	cout << endl <<  "Wyjście z programu." << endl << endl;
+	cout << "Czy na pewno chcesz wyjsc z programu?" << endl;
+    cout << "Aby potwierdzic wcisnij '1' " << endl;
+	int tak;
+	cin >> tak;
+	if tak =1
+	cout << "Do widzenia!" << endl;
+	return 0;
+	else menu();
+} */
+void wypisza()
+{
+    template <Tree photosTree> friend std::ostream& operator<<(std::ostream& out, const Tree<Photo>& tree);
+}
+
+void wypiszch()
+{
+    template <Tree dateTree> friend std::ostream& operator<<(std::ostream& out, const Tree<Photolist>& tree);
+}
+void znajdznazw()
+{
+    cout << "Wpisz nazwe zdjecia, ktore chcesz znalexc"<<endl;
+    string nazwa;
+    cin >> nazwa;
+     Photo* find(const nazwa);
+}
+void znajdztag()
+{
+    cout << "Podaj nazwe poszukiwanego tagu" << endl;
+    string nazwatag;
+    cin >> nazwatag;
+    Photolist* find(const nazwatag);
+}
+
+void znajdzdate()
+{
+    cout << "Wpisz date uwtorzenia zdjecia, ktore chcesz znalexc"<<endl;
+    cout << "Podaj dzien"<<endl;
+    int dzien;
+    cin >> dzien;
+    cout << "Podaj miesiac"<<endl;
+    int miesiac;
+    cin >> miesiac;
+    cout << "Podaj rok"<<endl;
+    int rok;
+    cin >> rok;
+
+    std::ostringstream ss;
+	ss << "Data: " << dzien << '.' << miesiac << '.' << rok << ';';
+	return ss.str();
+
+    Photolist* find( ss);
 }
 
 int main(int argc, char *argv[])
-
 {
-	do {}while (menu() != 8);  // sprawdzenie co zwraca funkcja menu
-// gdy inna niż 8 menu pojawi się od nowa
+    Tree<Photo> photosTree;
+    Tree<PhotoList> tagTree;
+    Tree<PhotoList> dateTree;
+
+	do {}while (menu() != 8);
 }
+

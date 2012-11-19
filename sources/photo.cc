@@ -5,7 +5,6 @@
 
 Photo::Photo (std::string title, const Date& d, const TagList& t)
 : photoName(title), date(d), tags(t)
-//tworzy fote :D (czyli te aparaty przereklamowane sa)
 {
     photoName = title;
 }

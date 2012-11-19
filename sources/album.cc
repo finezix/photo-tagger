@@ -5,7 +5,6 @@
 #include "../headers/photo.h"
 #include "../headers/date.h"
 
-//takie lubie najbardziej <3
 
 bool Album::save() // zapisywanie do pliku
 {
