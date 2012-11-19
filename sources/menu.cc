@@ -23,141 +23,127 @@ void wczytaj();
 int menu()
 
 {
+	cout << "1 - Instrukcja" << endl;
+	cout << "2 - Dodawanie zdjÄ™cia" << endl;
+	cout << "3 - Usuwanie zdjÄ™cia" << endl;
+	cout << "4 - Usuwanie wszystkich zdjÄ™Ä‡ z albumu" << endl;
+	cout << "5 - WyÅ›wietlanie zawartoÅ›ci albumu" << endl;
+	cout << "6 - Zapisywanie albumu do pliku" << endl;
+	cout << "7 - Wczytywanie albumu z pliku" << endl;
+	cout << "8 - WyjÅ›cie z programu" << endl << endl;
+	cout << "KtÃ³rÄ… funkcjÄ™ chcesz wybraÄ‡?" << endl;
 
-    cout << "1 - Instrukcja" << endl;
-    cout << "2 - Dodawanie zdjecia" << endl;
-    cout << "3 - Usuwanie zdjecia" << endl;
-    cout << "4 - Usuwanie wszystkich zdjec z albumu" << endl;
-    cout << "5 - Wyswietlanie zawartosci albumu" << endl;
-    cout << "6 - Zapisywanie albumu do pliku" << endl;
-    cout << "7 - Wczytywanie albumu z pliku" << endl;
-    cout << "8 - Wyjœcie z programu" << endl;
+	int pytanie;
+	cin >> pytanie;
 
-    cout << "Któr¹ funkcjê chcesz wybraæ?" << endl;
-
-    int pytanie;
-
-    cin >> pytanie;
-
-
-    switch(pytanie)
-    {
-        case 1: instrukcja();       // instrukcja
-                break;
-        case 2: dodawanie(); // dodawanie
-                break;
-        case 3: usuwanie(); // usuwanie zdjecia z albumu
-                break;
-        case 4: formatowanie();     // usuwanie wszystkiego
-                break;
-        case 5: wyswietlanie();     // wypisywanie
-                break;
-        case 6: zapisz();     // zapis stanu do pliku
-                break;
-        case 6: wczytaj();     // wczytywanie danych z pliku
-                break;
-        case 8: wyjscie();     // wyjœcie z programu
-                break;
-    }
-    return pytanie;            // zwraca wartoœæ do porównania.
+	switch (pytanie)
+	{
+		case 1: instrukcja();// instrukcja
+				break;
+		case 2: dodawanie();// dodawanie
+				break;
+		case 3: usuwanie();// usuwanie zdjecia z albumu
+				break;
+		case 4: formatowanie();// usuwanie wszystkiego
+				break;
+		case 5: wyswietlanie();// wypisywanie
+				break;
+		case 6: zapisz();// zapis stanu do pliku
+				break;
+		case 6: wczytaj();// wczytywanie danych z pliku
+				break;
+		case 8: wyjscie();// wyjÅ›cie z programu
+				break;
+	}
+	return pytanie; // zwraca wartoÅ›Ä‡ do porÃ³wnania.
 }
 
 
 void instrukcja()
 {
-    cout << "Interaktywny program pozwalaj¹cy na opanowanie kolekcji zdjêæ." << endl;
-    cout << "Program pozwala na nadanie zdjêciu do piêciu ró¿nych kategorii," << endl;
-    cout << "pozwala równie¿ wyszukiwaæ zdjêcia wed³ug nazwy, daty utworzenia," << endl;
-    cout << "oraz przypisanych kategorii. Zycze milej zabawy!" << endl;
+	cout << "Interaktywny program pozwalajÄ…cy na opanowanie kolekcji zdjÄ™Ä‡." << endl;
+	cout << "Program pozwala na nadanie zdjÄ™ciu do piÄ™ciu rÃ³Å¼nych kategorii," << endl;
+	cout << "pozwala rÃ³wnieÅ¼ wyszukiwaÄ‡ zdjÄ™cia wedÅ‚ug nazwy, daty utworzenia," << endl;
+	cout << "oraz przypisanych kategorii. Å»yczÄ™ miÅ‚ej zabawy!" << endl;
 }
 
 void dodawanie()
 {
-    int dd, mm, yyyy;
-    string title;
+	int dd, mm, yyyy;
+	string title;
 
-    cout << endl << "Dodawanie zdjec." << endl << endl;
-    cout << "Podaj nazwê dodawanego zdjêcia" << endl;
-    cin >> title;
+	cout << endl << "Dodawanie zdjÄ™Ä‡." << endl << endl;
+	cout << "Podaj nazwÄ™ dodawanego zdjÃªcia" << endl;
+	cin >> title;
 
-    cout << "Podaj dzien uwtorzenia zdjecia" << endl;
-    cin >> dd;
-    cout << "Podaj miesiac uwtorzenia zdjecia" << endl;
-    cin >> mm;
-    cout << "Podaj rok uwtorzenia zdjecia" << endl;
-    cin >> yyyy;
-    Date d(dd, mm, yyyy);
+	cout << "Podaj dzieÅ„ utworzenia zdjÄ™cia" << endl;
+	cin >> dd;
+	cout << "Podaj miesiÄ…c utworzenia zdjÄ™cia" << endl;
+	cin >> mm;
+	cout << "Podaj rok utworzenia zdjÄ™cia" << endl;
+	cin >> yyyy;
+	Date d(dd, mm, yyyy);
 
-    cout << "Podaj ilosc tagow, ktora chcesz przypisac do zdjecia" << endl;
-    int ilosc;
-    if ilosc > 5 cout << "Blad, wybierz mniejsza liczbe!";
-    if ilosc=0 cout << "Brak tagow do dodania";
-    else{
-    TagList tl;
-    for (i=1, i<ilosc+1, i++)
-    {
-        string nazwatagu;
-        string wagatagu;
-        cout << "Podaj nazwe kategorii, ktora chcesz przypisac do zdjecia (tag)" << endl;
-        cin >> nazwatagu;
-        cout << "Podaj wage dodanego tagu" << endl;
-        cin >> wagatagu;
-        tl.add(Tag(nazwatagu, wagatagu));
-        cout << "Dodano tag " << i << " z " << ilosc << endl;
-        cout << "Dodawanie tagu " << i+1 << " z " << ilosc <<" w toku."<< endl;
-        }
-    }
-    Photo p(title, const Date& d, const TagList& tl);
-    cout << "Zdjecie dodano do albumu"<<endl;
-
+	cout << "Podaj iloÅ›Ä‡ tagÃ³w, ktorÄ… chcesz przypisaÄ‡ do zdjÄ™cia" << endl;
+	int ilosc;
+	do {
+		cin >> ilosc;
+		if (ilosc > 5) {
+			cout << "BÅ‚Ä…d, wybierz mniejszÄ… liczbÄ™!";
+			return;
+		}
+		if (ilosc = 0)
+			cout << "Brak tagÃ³w do dodania";
+	} while (ilosc < 6 && ilosc > -1);
+	TagList tl;
+	for (int i = 0; i < ilosc; i++) {
+		cout << "Dodawanie tagu " << i+1 << " z " << ilosc <<" w toku."<< endl;
+		string nazwatagu;
+		unsigned int wagatagu;
+		cout << "Podaj nazwe kategorii, ktora chcesz przypisac do zdjecia (tag)" << endl;
+		cin >> nazwatagu;
+		cout << "Podaj wage dodanego tagu" << endl;
+		cin >> wagatagu;
+		tl.add(Tag(nazwatagu, wagatagu));
+		cout << "Dodano tag " << i + 1 << " z " << ilosc << endl;
+	}
+	Photo p(title, d, tl);
+	cout << "Zdjecie dodano do albumu" << endl;
 }
 
 void usuwanie()
 {
-    cout <<  endl << "Oto zakoñczenie." << endl << endl;
+	cout <<  endl << "Oto zakoÅ„czenie." << endl << endl;
 }
 
 void formatowanie()
 {
-    cout <<  endl << "Oto zakoñczenie." << endl << endl;
+	cout <<  endl << "Oto zakoÅ„czenie." << endl << endl;
 }
 
 void wyswietlanie()
 {
-    cout <<  endl << "Oto zakoñczenie." << endl << endl;
+	cout <<  endl << "Oto zakoÅ„czenie." << endl << endl;
 }
 
 void wczytaj()
 {
-    //tu bedzie cos, co ogarnia wczytywanie
+	//tu bedzie cos, co ogarnia wczytywanie
 }
 
 void zapisz()
 {
-    //cos, co bedzie zapisywac
+	//cos, co bedzie zapisywac
 }
 
 void wyjscie()
 {
-    cout << endl <<  "Wyjœcie z programu." << endl << endl;
+	cout << endl <<  "WyjÅ›cie z programu." << endl << endl;
 }
 
 int main(int argc, char *argv[])
 
 {
-
-    int wyjscie = 0;  // tworzymy zmienn¹ int która bêdzie siê równaæ 0
-
-    do
-
-    {
-
-      wyjscie = menu();     // wywo³anie funkcji menu()
-
-    }while (wyjscie != 4);  // sprawdzenie co zwraca funkcja menu
-
-                            // gdy inna ni¿ 4 menu pojawi siê od nowa
-
-
-
+	do {}while (menu() != 8);  // sprawdzenie co zwraca funkcja menu
+// gdy inna niÅ¼ 8 menu pojawi siÄ™ od nowa
 }
