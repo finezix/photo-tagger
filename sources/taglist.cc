@@ -1,15 +1,14 @@
 #include "../headers/taglist.h"
 #include "../headers/tag.h"
 
-#include <ostream> // tu tez pewnie niepotrzebne //pewnie nie
+#include <ostream>
 
-TagList::TagList()//pusty, nic z nim nie zrobimy...?
-// ustawiamy size na 0, to dosc wazne
+TagList::TagList()
 {
 	size = 0;
 }
 
-TagList::TagList(const TagList& other) //
+TagList::TagList(const TagList& other)
 {
 	size = other.size;
 	for (int i = 0; i < size; i++) {
@@ -17,7 +16,7 @@ TagList::TagList(const TagList& other) //
 	}
 }
 
-TagList& TagList::operator=(const TagList& other) // czy to serio kopiuje...?
+TagList& TagList::operator=(const TagList& other)
 {
 	size = other.size;
 	for (int i = 0; i < size; i++) {
@@ -26,7 +25,7 @@ TagList& TagList::operator=(const TagList& other) // czy to serio kopiuje...?
 	return *this;
 }
 
-std::ostream& operator<<(std::ostream& os, const TagList& tag) //wypisuje... lol. nie wiem.
+std::ostream& operator<<(std::ostream& os, const TagList& tag)
 {
 	os << "Tags:{";
 	for (int i = 0; i < tag.size; i++) {
@@ -36,7 +35,7 @@ std::ostream& operator<<(std::ostream& os, const TagList& tag) //wypisuje... lol
 	return os;
 }
 
-bool TagList::add(const Tag& t) // dodaje tag, zwraca true  jeœli tagu wczeœniej nie by³o na liœcie i zosta³ poprawnie dodany
+bool TagList::add(const Tag& t)
 {
 	if (size + 1 > MAX_TAGS_COUNT)
 		return false;
@@ -60,18 +59,18 @@ bool TagList::add(const Tag& t) // dodaje tag, zwraca true  jeœli tagu wczeœni
 	return true;
 }
 
-int TagList::getSize() // iloœæ tagów na liœcie // potrzebne? // chyba tak
+int TagList::getSize() // iloœæ tagów na liœcie //
 {
 	return size;
 }
 
-Tag TagList::get(int index) // zwraca tag spod danego indeksu
+Tag TagList::get(int index)
 {
 	if (index < size) return list[index];
-	else return Tag(); // chyba powinno byc inaczej, potem pomysle // anie lepiej, zeby wypisalo "brak tagusia"czy cos takiego?
+	else return Tag();
 }
 
-int TagList::getIndex(const std::string& tagName) //zwraca (-1) jeœli na liœcie nie ma podanego tagu // tak, to rozumieeem
+int TagList::getIndex(const std::string& tagName)
 {
 	int i = 0;
 	bool found = false;

@@ -8,38 +8,39 @@
 #include <iostream>
 #include <string>
 #include <ostream>
+#include <sstream>
 
 //ogolnie nie wiem, jak napisac to, ze te drzewa ze soba rozmawiaja...
 
 using namespace std;
 
 void instrukcja();
-void dodawanie();
-void usuwanie();
-void formatowanie();
-void wyswietlanie();
-//void wyjscie();
-void zapisz();
-void wczytaj();
+void dodawanie(Album& album);
+void usuwanie(Album& album);
+void formatowanie(Album& album);
+void wyswietlanie(Album& album);
+void wyjscie();
+void zapisz(Album& album);
+void wczytaj(Album& album);
 
-void wypisza();
-void wypiszch();
-void znajdznazw();
-void znajdztag();
-void znajdzdate();
+void wypisza(Album& album);
+void wypiszch(Album& album);
+void znajdznazw(Album& album);
+void znajdztag(Album& album);
+void znajdzdate(Album& album);
 
-int menu()
+int menu(Album& album)
 
 {
 	cout << "1 - Instrukcja" << endl;
-	cout << "2 - Dodawanie zdjęcia" << endl;
-	cout << "3 - Usuwanie zdjęcia" << endl;
-	cout << "4 - Usuwanie wszystkich zdjęć z albumu" << endl;
-	cout << "5 - Wyświetlanie zawartości albumu" << endl;
+	cout << "2 - Dodawanie zdjecia" << endl;
+	cout << "3 - Usuwanie zdjecia" << endl;
+	cout << "4 - Usuwanie wszystkich zdjec z albumu" << endl;
+	cout << "5 - Wyświetlanie zawartosci albumu" << endl;
 	cout << "6 - Zapisywanie albumu do pliku" << endl;
 	cout << "7 - Wczytywanie albumu z pliku" << endl;
-	cout << "8 - Wyjście z programu" << endl << endl;
-	cout << "Którą funkcję chcesz wybrać?" << endl;
+	cout << "8 - Wyjscie z programu" << endl << endl;
+	cout << "Ktora funkcje chcesz wybrac?" << endl;
 
 	int pytanie;
 	cin >> pytanie;
@@ -48,17 +49,19 @@ int menu()
 	{
 		case 1: instrukcja();// instrukcja
 				break;
-		case 2: dodawanie();// dodawanie
+		case 2: dodawanie(album);// dodawanie
 				break;
-		case 3: usuwanie();// usuwanie zdjecia z albumu
+		case 3: usuwanie(album);// usuwanie zdjecia z albumu
 				break;
-		case 4: formatowanie();// usuwanie wszystkiego
+		case 4: formatowanie(album);// usuwanie wszystkiego
 				break;
-		case 5: wyswietlanie();// wypisywanie
+		case 5: wyswietlanie(album);// wypisywanie
 				break;
-		case 6: zapisz();// zapis stanu do pliku
+		case 6: zapisz(album);// zapis stanu do pliku
 				break;
-		case 7: wczytaj();// wczytywanie danych z pliku
+		case 7: wczytaj(album);// wczytywanie danych z pliku
+				break;
+		case 8: wyjscie();
 				break;
     }
 	return pytanie; // zwraca wartość do porównania.
@@ -73,24 +76,24 @@ void instrukcja()
 	cout << "oraz przypisanych kategorii. Życzę miłej zabawy!" << endl;
 }
 
-void dodawanie()
+void dodawanie(Album& album)
 {
 	int dd, mm, yyyy;
 	string title;
 
-	cout << endl << "Dodawanie zdjęć." << endl << endl;
-	cout << "Podaj nazwę dodawanego zdjêcia" << endl;
+	cout << endl << "Dodawanie zdjec." << endl << endl;
+	cout << "Podaj nazwe dodawanego zdjêcia" << endl;
 	cin >> title;
 
-	cout << "Podaj dzień utworzenia zdjęcia" << endl;
+	cout << "Podaj dzien utworzenia zdjecia" << endl;
 	cin >> dd;
-	cout << "Podaj miesiąc utworzenia zdjęcia" << endl;
+	cout << "Podaj miesiac utworzenia zdjecia" << endl;
 	cin >> mm;
-	cout << "Podaj rok utworzenia zdjęcia" << endl;
+	cout << "Podaj rok utworzenia zdjecia" << endl;
 	cin >> yyyy;
 	Date d(dd, mm, yyyy);
 
-	cout << "Podaj ilość tagów, ktorą chcesz przypisać do zdjęcia" << endl;
+	cout << "Podaj ilosc tagow, ktora chcesz przypisac do zdjecia" << endl;
 	int ilosc;
 	do {
 		cin >> ilosc;
@@ -98,9 +101,9 @@ void dodawanie()
 			cout << "Błąd, wybierz mniejszą liczbę!";
 			return;
 		}
-		if (ilosc = 0)
+		if (ilosc < 1)
 			cout << "Brak tagów do dodania";
-	} while (ilosc < 6 && ilosc > -1);
+	} while (ilosc > 5 || ilosc < 1);
 	TagList tl;
 	for (int i = 0; i < ilosc; i++) {
 		cout << "Dodawanie tagu " << i+1 << " z " << ilosc <<" w toku."<< endl;
@@ -113,32 +116,33 @@ void dodawanie()
 		tl.add(Tag(nazwatagu, wagatagu));
 		cout << "Dodano tag " << i + 1 << " z " << ilosc << endl;
 	}
-	Photo p(title, d, tl);
-
-	// tu cos, to ma jakis zwiazek z tym album::add(photo* p), co nie...?
-	//ale nie umiem zupelnie
-
-	cout << "Zdjecie dodano do albumu" << endl;
-	int menu();
+	
+	if (album.add(new Photo(title, d, tl)))
+		cout << "Zdjecie dodano do albumu" << endl;
+	else
+		cout << "Zdjecia nie dodano do albumu" << endl;
 }
 
-void usuwanie()
+void usuwanie(Album& album)
 {
 	cout << "Co chcesz usunąć?" << endl;
 	cout << "1 - Usun zdjecie";
 }
 
-void formatowanie()
+void formatowanie(Album& album)
 {
 	cout <<  "Czy na pewno chcesz usunąć album?" << endl;
 	cout <<  "Aby potwierdzic wcisnij '1' " << endl;
 	int potwierdzenie;
-	if (potwierdzenie=1)	{void removeAll();}
-	else cout << "Album nie zostal usuniety" << endl;
-	int menu();
+	cin >> potwierdzenie;
+	if (potwierdzenie == 1) {
+		album.removeAll();
+		cout << "Album zostal usuniety" << endl;
+	} else
+		cout << "Album nie zostal usuniety" << endl;
 }
 
-void wyswietlanie()
+void wyswietlanie(Album& album)
 {
 	cout << "Wyswietlanie, co chcesz zrobic?" << endl;
 	cout << "1 - Wyswietl alfabetycznie zdjecia zawarte w albumie" << endl;
@@ -147,73 +151,70 @@ void wyswietlanie()
 	cout << "4 - Szukaj tagu" << endl;
 	cout << "5 - Szukaj daty" << endl;
 
-	int pytanie2;
+	int pytanie2 = 1;
 	cin >> pytanie2;
 
 	switch (pytanie2)
 	{
-	    case 1: wypisza();// instrukcja
+	    case 1: wypisza(album);// instrukcja
 				break;
-		case 2: wypiszch;// dodawanie
+		case 2: wypiszch(album);// dodawanie
 				break;
-		case 3: znajdznazw();// usuwanie zdjecia z albumu
+		case 3: znajdznazw(album);// usuwanie zdjecia z albumu
 				break;
-		case 4: znajdztag();// usuwanie wszystkiego
+		case 4: znajdztag(album);// usuwanie wszystkiego
 				break;
-		case 5: znajdzdate();// wypisywanie
+		case 5: znajdzdate(album);// wypisywanie
 				break;
-}
+	}
 }
 
-void wczytaj()
+void wczytaj(Album& album)
 {
 	cout <<"Error 404: Page not found" << endl;
 	cout <<"Yet..." << endl;
+//	bool load();
 }
 
-void zapisz()
+void zapisz(Album& album)
 {
 	cout << "Error 404: Page not found" << endl;
 	cout << "Yet..." << endl;
-	menu();
+//	bool save();
 }
 
-/* void wyjscie()
+void wyjscie()
 {
-	cout << "Czy na pewno chcesz wyjsc z programu?" << endl;
-    cout << "Aby potwierdzic wcisnij '1' " << endl;
-	int tak;
-	cin >> tak;
-	if tak =1
-	cout << "Do widzenia!" << endl;
-	return 0;
-	else menu();
-} */
-void wypisza()
-{
-    template <Tree photosTree> friend std::ostream& operator<<(std::ostream& out, const Tree<Photo>& tree);
+	cout << "Dziękuję za używanie programu. Program się zakończy." << endl;
 }
 
-void wypiszch()
+void wypisza(Album& album)
 {
-    template <Tree dateTree> friend std::ostream& operator<<(std::ostream& out, const Tree<Photolist>& tree);
+	cout << "Wypisuje caly album:" << endl << endl;
+	cout << album << endl;
 }
-void znajdznazw()
+
+void wypiszch(Album& album)
+{
+//     template <Tree dateTree> friend std::ostream& operator<<(std::ostream& out, const Tree<Photolist>& tree);
+}
+void znajdznazw(Album& album)
 {
     cout << "Wpisz nazwe zdjecia, ktore chcesz znalexc"<<endl;
     string nazwa;
     cin >> nazwa;
-     Photo* find(const nazwa);
+//     album.find(nazwa);
 }
-void znajdztag()
+void znajdztag(Album& album)
 {
     cout << "Podaj nazwe poszukiwanego tagu" << endl;
     string nazwatag;
     cin >> nazwatag;
-    Photolist* find(const nazwatag);
+	PhotoList* list = album.tagTree.find(nazwatag);
+	cout << list << endl;
 }
 
-void znajdzdate()
+void znajdzdate(Album& album)
 {
     cout << "Wpisz date uwtorzenia zdjecia, ktore chcesz znalexc"<<endl;
     cout << "Podaj dzien"<<endl;
@@ -228,17 +229,6 @@ void znajdzdate()
 
     std::ostringstream ss;
 	ss << "Data: " << dzien << '.' << miesiac << '.' << rok << ';';
-	return ss.str();
 
-    Photolist* find( ss);
+//     findDate(Data(dzien, miesiac, rok));
 }
-
-int main(int argc, char *argv[])
-{
-    Tree<Photo> photosTree;
-    Tree<PhotoList> tagTree;
-    Tree<PhotoList> dateTree;
-
-	do {}while (menu() != 8);
-}
-

@@ -2,21 +2,21 @@
 
 #include <sstream>
 
-Date::Date (unsigned int dd, unsigned int mm, unsigned int yyyy) //on nam po prostu tworzy datke, prawda...?
+Date::Date (unsigned int dd, unsigned int mm, unsigned int yyyy)
 {
 	this->dd = dd;
 	this->mm = mm;
 	this->yyyy = yyyy;
 }
 
-Date::Date (const Date& other) // kopijacy...? lol, znow nic nie wiem. :D
+Date::Date (const Date& other)
 {
 	dd = other.dd;
 	mm = other.mm;
 	yyyy = other.yyyy;
 }
 
-Date& Date::operator=(const Date& other) //operator przypisania tak zwany?
+Date& Date::operator=(const Date& other)
 {
 	dd = other.dd;
 	mm = other.mm;
@@ -24,18 +24,18 @@ Date& Date::operator=(const Date& other) //operator przypisania tak zwany?
 	return *this;
 }
 
-std::ostream& operator<< (std::ostream& os, const Date& d) // strumieniowy, wypisuje na ekran
+std::ostream& operator<< (std::ostream& os, const Date& d)
 {
 	os << d.dd << '.' << d.mm << '.' << d.yyyy;
 	return os;
 }
 
-int Date::compareTo(const Date& d) //int //porownuje daty, nie?
+int Date::compareTo(const Date& d)
 {
 	return (dd + mm * 31 + yyyy * 366) - (d.dd + d.mm * 31 + d.yyyy * 366);
 }
 
-std::string Date::toString() // string a ten mial robic stringa z daty <3 ale nie pamietam po jaka cholercie...
+std::string Date::toString()
 {
 	std::ostringstream ss;
 	ss << "Data: " << dd << '.' << mm << '.' << yyyy << ';';

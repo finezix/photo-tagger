@@ -4,6 +4,7 @@
 #include "../headers/photolist.h"
 #include "../headers/photo.h"
 #include "../headers/date.h"
+#include "menu.cc"
 
 // >>>>>>> do testow
 #include "test.cc"
@@ -14,8 +15,11 @@
 
 
 int main() {
-	dataCheck();
-	tagCheck();
-	taglistCheck();
+// 	dataCheck();
+// 	tagCheck();
+// 	taglistCheck();
+
+	Album album;
+	do {}while (menu(album) != 8);
 	return 0;
 }

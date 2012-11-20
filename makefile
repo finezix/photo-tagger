@@ -5,10 +5,10 @@ CXXFLAGS = -Wall
 
 objects = album.o date.o photo.o photolist.o tag.o taglist.o
 
-all : main.o $(objects) test.cc
+all : main.o $(objects) test.cc menu.cc
 	g++ -o tagger $(CXXFLAGS) $(objects) main.o
 
-main.o : $(objects) test.cc
+main.o : $(objects) test.cc menu.cc
 
 album.o : album.h date.h photo.h photolist.h tag.h taglist.h
 

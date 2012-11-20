@@ -6,6 +6,7 @@
 #include "photo.h"
 
 #include <string>
+#include <ostream>
 
 /* Holds photo array which is sorted according to result got from
  * calling photo->getWeight(<title of this list>), if result is < 0,
@@ -20,6 +21,7 @@ class PhotoList
 {
 public:
 	PhotoList(const std::string& title);
+	friend std::ostream& operator<<(std::ostream& out, PhotoList* list);
 	
     std::string getTitle(); // returns List's title
     int getSize(); // returns number of held elements

@@ -62,7 +62,7 @@ template <class T>
 std::ostream& operator<<(std::ostream& out, const Tree<T>& tree)
 {
     if (tree.root != NULL) {
-        out << tree.root;
+        out << *(tree.root);
     }
     return out;
 }
@@ -81,7 +81,7 @@ bool Tree<T>::add(T* object)
         root = new Node<T>(object);
         return true;
     }
-    return add(root, object);
+    return addT(root, object);
 }
 
 template <class T>

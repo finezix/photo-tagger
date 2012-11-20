@@ -4,8 +4,6 @@
 #include <string>
 #include <ostream>
 
-/* Unmodifiable class holding simple ints, capable of writing itself to out stream,
- * comparing itself to other dates, and returning string containing it */
 class Date
 {
 public:
@@ -13,7 +11,7 @@ public:
 	Date (const Date& other);
 	Date& operator= (const Date& other);
     friend std::ostream& operator<< (std::ostream& os, const Date& d );
-	
+
     int compareTo(const Date& d); //int
     std::string toString(); // string
 
